@@ -8,6 +8,7 @@ const { env } = require('./config/env');
 const healthRoutes = require('./interfaces/http/routes/health');
 const articleRoutes = require('./interfaces/http/routes/articles');
 const categoryRoutes = require('./interfaces/http/routes/categories');
+const uploadRoutes = require('./interfaces/http/routes/uploads');
 const searchRoutes = require('./interfaces/http/routes/search');
 
 const app = express();
@@ -35,6 +36,7 @@ app.use(express.static('public'));
 app.use('/api/health', healthRoutes);
 app.use('/api/articles', articleRoutes);
 app.use('/api/categories', categoryRoutes);
+app.use('/api/uploads', uploadRoutes);
 app.use('/api/search', searchRoutes);
 
 // Global error handler
