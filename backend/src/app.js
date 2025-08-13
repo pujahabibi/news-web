@@ -28,6 +28,9 @@ app.use(morgan('combined'));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Serve static files from the 'public' directory
+app.use(express.static('public'));
+
 // API routes
 app.use('/api/health', healthRoutes);
 app.use('/api/articles', articleRoutes);
