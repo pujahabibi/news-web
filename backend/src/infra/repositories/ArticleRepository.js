@@ -76,6 +76,44 @@ class ArticleRepository {
     return updated;
   }
 
+  async create(article) {
+    const newArticle = await prisma.article.create({
+      data: {
+        title: article.title,
+        content: article.content,
+        summary: article.summary, // Assuming summary is part of article entity
+        author: article.author,
+        publishedAt: new Date(), // Set publish date on creation
+        views: 0,
+        likes: 0,
+        categoryId: article.categoryId,
+        thumbnailUrl: article.thumbnailUrl
+      },
+      include: {
+        category: true
+      }
+    });
+
+    return new Article(newArticle);
+  }
+
+  async update(id, article) {
+    const updatedArticle = await prisma.article.update({
+      where: { id: parseInt(id) },
+      data: {
+        title: article.title,
+        content: article.content,
+        summary: article.summary,
+        author: article.author,
+        categoryId: article.categoryId,
+        thumbnailUrl: article.thumbnailUrl,
+        updatedAt: new Date()
+      }
+    });
+
+    return new Article(updatedArticle);
+  }
+
   async search(query, { page = 1, limit = 10 }) {
     const skip = (page - 1) * limit;
     
